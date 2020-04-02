@@ -16,13 +16,18 @@ function setQuery(event) {
 
 // use the user input to thread through an API call and return as json
 function getResults(query) {
-    fetch(`${api.baseurl}weather?q=${query}&units=imperial&APPID=${api.key}`)
-    .then(response => {
-        return response.json();
-    }).then(showResults);
+    if (query) {
+        fetch(`${api.baseurl}weather?q=${query}&units=imperial&APPID=${api.key}`)
+            .then(response => {
+                return response.json();
+            }).then(showResults);
+    } else {
+        alert("Please enter a city or state");
+    }
 }
 
 function showResults(response) {
+
     console.log(response.weather[0]);
     // render results to display City, CO
     let searchCity = document.querySelector(".city");
@@ -39,6 +44,7 @@ function showResults(response) {
     let now = new Date();
     let date = document.querySelector(".date");
     date.innerHTML = dateMaker(now);
+
 }
 
 function dateMaker(d) {
