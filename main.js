@@ -9,7 +9,6 @@ searchField.addEventListener("keypress", setQuery);
 function setQuery(event) {
     if (event.keyCode == 13) {
         getResults(searchField.value);
-        console.log(searchField.value);
     }
 }
 
@@ -22,4 +21,25 @@ function getResults(query) {
 
 function showResults(response) {
     console.log(response.main);
+    let searchCity = document.querySelector(".city");
+    searchCity.innerHTML = `${response.name}, ${response.sys.country}`;
+    let currentTemp = document.querySelector(".temp");
+    currentTemp.innerHTML = `${response.main.temp}°F`;
+    let hiLow = document.querySelector(".high-low");
+    hiLow.innerHTML = `${response.main.temp_min}°F / ${response.main.temp_max}°F`;
+    let now = new Date();
+    let date = document.querySelector(".date");
+    date.innerHTML = dateMaker(now);
+}
+
+function dateMaker(d) {
+    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    let day = days[d.getDay()];
+    let date = d.getDate();
+    let month = months[d.getMonth()];
+    let year = d.getFullYear();
+
+    return `${day} ${month} ${date}, ${year}`;
 }
