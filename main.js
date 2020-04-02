@@ -23,13 +23,16 @@ function getResults(query) {
 
 function showResults(response) {
     console.log(response.main);
+    // render results to display City, CO
     let searchCity = document.querySelector(".city");
     searchCity.innerHTML = `${response.name}, ${response.sys.country}`;
+    // display and round primary large temperature number
     let currentTemp = document.querySelector(".temp");
     currentTemp.innerHTML = `${Math.round(response.main.temp)}°F`;
+    // display the daily high and low temperatures
     let hiLow = document.querySelector(".high-low");
     hiLow.innerHTML = `${response.main.temp_min}°F / ${response.main.temp_max}°F`;
-    
+    // append a new date with the function created below
     let now = new Date();
     let date = document.querySelector(".date");
     date.innerHTML = dateMaker(now);
