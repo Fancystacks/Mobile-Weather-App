@@ -27,8 +27,6 @@ function getResults(query) {
 }
 
 function showResults(response) {
-
-    console.log(response.weather[0]);
     // render results to display City, CO
     let searchCity = document.querySelector(".city");
     searchCity.innerHTML = `${response.name}, ${response.sys.country}`;
@@ -44,7 +42,6 @@ function showResults(response) {
     let now = new Date();
     let date = document.querySelector(".date");
     date.innerHTML = dateMaker(now);
-
 }
 
 function dateMaker(d) {
