@@ -6,12 +6,14 @@ const api = {
 const searchField = document.querySelector(".search-box");
 searchField.addEventListener("keypress", setQuery);
 
+// on keypress of the enter key, display the results
 function setQuery(event) {
     if (event.keyCode == 13) {
         getResults(searchField.value);
     }
 }
 
+// use the user input to thread through an API call and return as json
 function getResults(query) {
     fetch(`${api.baseurl}weather?q=${query}&units=imperial&APPID=${api.key}`)
     .then(response => {
@@ -24,9 +26,10 @@ function showResults(response) {
     let searchCity = document.querySelector(".city");
     searchCity.innerHTML = `${response.name}, ${response.sys.country}`;
     let currentTemp = document.querySelector(".temp");
-    currentTemp.innerHTML = `${response.main.temp}°F`;
+    currentTemp.innerHTML = `${Math.round(response.main.temp)}°F`;
     let hiLow = document.querySelector(".high-low");
     hiLow.innerHTML = `${response.main.temp_min}°F / ${response.main.temp_max}°F`;
+    
     let now = new Date();
     let date = document.querySelector(".date");
     date.innerHTML = dateMaker(now);
