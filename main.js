@@ -10,6 +10,7 @@ searchField.addEventListener("keypress", setQuery);
 function setQuery(event) {
     if (event.keyCode == 13) {
         getResults(searchField.value);
+        searchField.value = "";
     }
 }
 
@@ -22,7 +23,7 @@ function getResults(query) {
 }
 
 function showResults(response) {
-    console.log(response.main);
+    console.log(response.weather[0]);
     // render results to display City, CO
     let searchCity = document.querySelector(".city");
     searchCity.innerHTML = `${response.name}, ${response.sys.country}`;
@@ -31,7 +32,9 @@ function showResults(response) {
     currentTemp.innerHTML = `${Math.round(response.main.temp)}°F`;
     // display the daily high and low temperatures
     let hiLow = document.querySelector(".high-low");
-    hiLow.innerHTML = `${response.main.temp_min}°F / ${response.main.temp_max}°F`;
+    hiLow.innerHTML = `${Math.round(response.main.temp_min)}°F  /  ${Math.round(response.main.temp_max)}°F`;
+    let currentWeather = document.querySelector(".condition");
+    currentWeather.innerHTML = response.weather[0].main;
     // append a new date with the function created below
     let now = new Date();
     let date = document.querySelector(".date");
@@ -46,6 +49,6 @@ function dateMaker(d) {
     let date = d.getDate();
     let month = months[d.getMonth()];
     let year = d.getFullYear();
-
+    // return wednesday, April 1st, 2020
     return `${day} ${month} ${date}, ${year}`;
 }
